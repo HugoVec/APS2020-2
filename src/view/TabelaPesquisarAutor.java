@@ -5,6 +5,9 @@
  */
 package view;
 
+import dao.AutorDAO;
+import entity.Autor;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Breno Santos
@@ -16,6 +19,27 @@ public class TabelaPesquisarAutor extends javax.swing.JFrame {
      */
     public TabelaPesquisarAutor() {
         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        //jTable1.setRowSorter(modelo);
+        
+        readAutorBD();
+        
+    }
+    
+    public void readAutorBD() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+        AutorDAO autor = new AutorDAO();
+        
+        for(Autor a: autor.listarAutor() ){  
+            modelo.addRow(new Object[]{
+                a.getAuthor_id(),
+                a.getName(),
+                a.getFname()
+            });
+            
+        }
+        
     }
 
     /**
@@ -54,10 +78,10 @@ public class TabelaPesquisarAutor extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
