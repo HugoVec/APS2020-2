@@ -41,6 +41,30 @@ public class AutorDAO {
         //return false;
     }
     
+     public List<Autor> listarAutor() {
+        String sql = "SELECT * FROM auhtors";
+        PreparedStatement stmt;
+        List<Autor> autores = new ArrayList<>();
+        if (conn != null) {
+            try {
+                stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    Autor autor = new Autor();
+
+                    autor.setName(rs.getString("Nome"));
+                    autor.setFname(rs.getString("Fname"));
+                    autores.add(autor);
+                }
+                return autores;
+            } catch (SQLException ex) {
+                Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
     
     
     public void excluirAutor (Autor autor){
@@ -81,6 +105,8 @@ public class AutorDAO {
         }
 
     }
+    
+    
     
     
 }
