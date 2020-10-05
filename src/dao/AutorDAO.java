@@ -41,10 +41,13 @@ public class AutorDAO {
         //return false;
     }
     
-     public List<Autor> listarAutor() {
-        String sql = "SELECT * FROM auhtors";
+
+    
+    public List<Autor> listarAutor() {
+        String sql = "SELECT * FROM authors";
         PreparedStatement stmt;
         List<Autor> autores = new ArrayList<>();
+        
         if (conn != null) {
             try {
                 stmt = conn.prepareStatement(sql);
@@ -53,17 +56,22 @@ public class AutorDAO {
                 while (rs.next()) {
                     Autor autor = new Autor();
 
-                    autor.setName(rs.getString("Nome"));
-                    autor.setFname(rs.getString("Fname"));
+                    autor.setAuthor_id(rs.getInt("author_id"));
+                    autor.setFname(rs.getString("fname"));
+                    autor.setName(rs.getString("name"));
+                    
                     autores.add(autor);
                 }
                 return autores;
             } catch (SQLException ex) {
-                Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Failed in listarAutor()");
+                Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
+        
     }
+    
     
     
     
