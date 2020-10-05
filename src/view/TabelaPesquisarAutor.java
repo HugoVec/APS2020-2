@@ -3,7 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package view;
+
+import dao.AutorDAO;
+import entity.Autor;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,9 +20,28 @@ public class TabelaPesquisarAutor extends javax.swing.JFrame {
      * Creates new form TabelaPesquisarAutor
      */
     public TabelaPesquisarAutor() {
-        initComponents();
+         initComponents();
+         setLocationRelativeTo(null);
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        //jTable1.setRowSorter(modelo);
+        
+        readAutorBD();
     }
+    
+      public void readAutorBD() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
+        AutorDAO autor = new AutorDAO();
+        
+        for(Autor a: autor.listarAutor() ){  
+            modelo.addRow(new Object[]{
+                a.getAuthor_id(),
+                a.getName(),
+                a.getFname()
+            });
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,6 +129,7 @@ public class TabelaPesquisarAutor extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
