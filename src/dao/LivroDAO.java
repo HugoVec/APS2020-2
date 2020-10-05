@@ -64,5 +64,23 @@ public class LivroDAO {
             }
         }
         return null;
+        
+    }
+    
+    public void excluirLivro (Livro livro){
+        String sql = "DELETE FROM booksAuthors where isbn=?";
+        
+        try {
+            try ( //Statement stmt = conn.prepareStatement(sql);
+                    PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, livro.getIsbn());
+                pstmt.executeUpdate();
+            }
+            conn.close();
+            
+            JOptionPane.showMessageDialog(null, "Livro Excluido com sucesso");
+        } catch(SQLException e){
+           System.err.println(e.getMessage());
+        }
     }
 }

@@ -63,4 +63,8 @@ public class EditoraDAO {
         }
         return null;
     }
+    
+    public void ExcluirEditora(){
+        
+    }
 }
