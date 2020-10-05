@@ -42,7 +42,7 @@ public class AutorDAO {
     }
     
      public List<Autor> listarAutor() {
-        String sql = "SELECT * FROM publishers";
+        String sql = "SELECT * FROM auhtors";
         PreparedStatement stmt;
         List<Autor> autores = new ArrayList<>();
         if (conn != null) {
@@ -59,7 +59,7 @@ public class AutorDAO {
                 }
                 return autores;
             } catch (SQLException ex) {
-                Logger.getLogger(EditoraDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AutorDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
