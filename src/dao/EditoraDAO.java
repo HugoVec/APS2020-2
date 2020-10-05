@@ -64,7 +64,23 @@ public class EditoraDAO {
         return null;
     }
     
-    public void ExcluirEditora(){
+    public void excluirEditora (Editora editora){
+        String sql = "DELETE FROM publishers where name = ? and url = ?";
         
+        try {
+            try ( //Statement stmt = conn.prepareStatement(sql);
+                    PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, editora.getName());
+                pstmt.setString(2, editora.getUrl());
+                pstmt.executeUpdate();
+            }
+            conn.close();
+            
+            JOptionPane.showMessageDialog(null, "Editora excluida com sucesso");
+            
+
+        } catch(SQLException e){
+           System.err.println(e.getMessage());
+        }
     }
 }
