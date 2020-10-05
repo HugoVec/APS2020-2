@@ -171,13 +171,17 @@ public class CadastrarEditora extends javax.swing.JFrame {
 
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
         // TODO add your handling code here:
-        
+         Editora editora = new Editora();
+        EditoraDAO editoraDAO = new EditoraDAO();
+        editora.setName(textFieldNome.getText());
+        editora.setUrl(textFieldUrl.getText());
+        editoraDAO.excluirEditora(editora);
         
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
         // TODO add your handling code here:
-        Editora editora = new Editora();
+       
         
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
