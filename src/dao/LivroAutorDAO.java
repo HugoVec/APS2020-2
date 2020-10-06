@@ -70,8 +70,8 @@ public class LivroAutorDAO {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setString(2, livroAutor.getIsbn());
-            stmt.setInt(1, livroAutor.getSeq_no());
+            stmt.setString(1, livroAutor.getIsbn());
+            stmt.setInt(2, livroAutor.getSeq_no());
             stmt.setInt(3, livroAutor.getAuthor_id());
 
             if (stmt.executeUpdate() > 0) {
