@@ -32,9 +32,8 @@ public class EditoraDAO {
                 return true;
             }
 
-            JOptionPane.showMessageDialog(null, "Editora inserida com sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao inserir editora" + ex);
+            System.err.println(ex.getMessage());
         }
         return false;
     }
@@ -58,15 +57,35 @@ public class EditoraDAO {
                 }
                 return editoras;
             } catch (SQLException ex) {
+                System.out.println("Failed in listarEditora()");
                 Logger.getLogger(EditoraDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
     }
-    
-    public void excluirEditora (Editora editora){
+
+    public boolean editarEditora(Editora editora) {
+        String sql = "UPDATE publishers SET name = ?, url = ? WHERE publisher_id = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, editora.getName());
+            stmt.setString(2, editora.getUrl());
+            stmt.setInt(3, editora.getPublisher_id());
+
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    public void excluirEditora(Editora editora) {
         String sql = "DELETE FROM publishers where name = ? and url = ?";
-        
+
         try {
             try ( //Statement stmt = conn.prepareStatement(sql);
                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -75,12 +94,11 @@ public class EditoraDAO {
                 pstmt.executeUpdate();
             }
             conn.close();
-            
-            JOptionPane.showMessageDialog(null, "Editora excluida com sucesso");
-            
 
-        } catch(SQLException e){
-           System.err.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Editora excluida com sucesso");
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
     }
 }

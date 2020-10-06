@@ -42,14 +42,11 @@
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="buttonCadastrar" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="buttonExcluir" max="32767" attributes="0"/>
-                                  <Component id="buttonPesquisar" max="32767" attributes="0"/>
-                                  <Component id="buttonModificar" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="buttonLimpar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="buttonExcluir" max="32767" attributes="0"/>
+                              <Component id="buttonPesquisar" max="32767" attributes="0"/>
+                              <Component id="buttonEditar" alignment="0" max="32767" attributes="0"/>
+                              <Component id="buttonLimpar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
                           </Group>
                           <Component id="buttonSair" min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
@@ -83,7 +80,7 @@
                   <Group type="102" attributes="0">
                       <Component id="buttonExcluir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Component id="buttonModificar" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonEditar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -176,12 +173,12 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
     </Container>
-    <Component class="javax.swing.JButton" name="buttonModificar">
+    <Component class="javax.swing.JButton" name="buttonEditar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Modificar"/>
+        <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonModificarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

@@ -33,9 +33,8 @@ public class LivroDAO {
                 return true;
             }
 
-            JOptionPane.showMessageDialog(null, "Livro inserido com sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao inserir o livro" + ex);
+            System.err.println(ex.getMessage());
         }
         return false;
     }
@@ -60,16 +59,37 @@ public class LivroDAO {
                 }
                 return livros;
             } catch (SQLException ex) {
+                System.out.println("Failed in listarLivro()");
                 Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
-        
+
     }
-    
-    public void excluirLivro (Livro livro){
-        String sql = "DELETE FROM booksAuthors where isbn=?";
-        
+
+    public boolean editarLivro(Livro livro) {
+        String sql = "UPDATE books SET title = ?, publisher_id = ?, price = ? WHERE isbn = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, livro.getTitulo());
+            stmt.setInt(2, livro.getPublisher_id());
+            stmt.setFloat(3, livro.getPrice());
+            stmt.setString(4, livro.getIsbn());
+
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    public void excluirLivro(Livro livro) {
+        String sql = "DELETE FROM books where isbn=?";
+
         try {
             try ( //Statement stmt = conn.prepareStatement(sql);
                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -77,10 +97,10 @@ public class LivroDAO {
                 pstmt.executeUpdate();
             }
             conn.close();
-            
+
             JOptionPane.showMessageDialog(null, "Livro Excluido com sucesso");
-        } catch(SQLException e){
-           System.err.println(e.getMessage());
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
     }
 }

@@ -26,7 +26,7 @@ public class CadastrarAutor extends javax.swing.JFrame {
         buttonExcluir = new javax.swing.JButton();
         buttonLimpar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        buttonModificar = new javax.swing.JButton();
+        buttonEditar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,10 +82,10 @@ public class CadastrarAutor extends javax.swing.JFrame {
             }
         });
 
-        buttonModificar.setText("Modificar");
-        buttonModificar.addActionListener(new java.awt.event.ActionListener() {
+        buttonEditar.setText("Editar");
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonModificarActionPerformed(evt);
+                buttonEditarActionPerformed(evt);
             }
         });
 
@@ -111,13 +111,11 @@ public class CadastrarAutor extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonCadastrar)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(buttonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(buttonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(buttonModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(buttonLimpar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(2, 2, 2))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(buttonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonLimpar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(buttonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,7 +141,7 @@ public class CadastrarAutor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonExcluir)
                         .addGap(11, 11, 11)
-                        .addComponent(buttonModificar))
+                        .addComponent(buttonEditar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -215,11 +213,11 @@ public class CadastrarAutor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
-    private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
         // TODO add your handling code here:
        AlterarAutor frame = new AlterarAutor();
        frame.setVisible(true);
-    }//GEN-LAST:event_buttonModificarActionPerformed
+    }//GEN-LAST:event_buttonEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,9 +257,9 @@ public class CadastrarAutor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
+    private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonLimpar;
-    private javax.swing.JButton buttonModificar;
     private javax.swing.JButton buttonPesquisar;
     private javax.swing.JButton buttonSair;
     private javax.swing.JLabel jLabel1;

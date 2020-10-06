@@ -5,6 +5,9 @@
  */
 package view;
 
+import dao.AutorDAO;
+import entity.Autor;
+
 /**
  *
  * @author Breno Santos
@@ -49,7 +52,12 @@ public class AlterarAutor extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Modificar");
+        jButton1.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Para");
 
@@ -71,8 +79,7 @@ public class AlterarAutor extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addGap(8, 8, 8)
-                                .addComponent(textFieldAlterarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(textFieldAlterarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -113,6 +120,15 @@ public class AlterarAutor extends javax.swing.JFrame {
     private void textFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldNomeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Autor autor = new Autor();
+        AutorDAO autorDAO = new AutorDAO();
+        
+        autor.setName(textFieldNome.getText());
+        autor.setFname(textFieldFNome.getText());
+        autorDAO.editarAutor(autor);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

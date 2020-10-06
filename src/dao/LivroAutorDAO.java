@@ -32,9 +32,8 @@ public class LivroAutorDAO {
                 return true;
             }
 
-            JOptionPane.showMessageDialog(null, "Inserido com sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao inserir" + ex);
+            System.err.println(ex.getMessage());
         }
         return false;
     }
@@ -58,9 +57,47 @@ public class LivroAutorDAO {
                 }
                 return livrosAutores;
             } catch (SQLException ex) {
+                System.out.println("Failed in listarLivroAutor()");
                 Logger.getLogger(LivroAutorDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
+    }
+
+    public boolean editarLivroAutor(LivroAutor livroAutor) {
+        String sql = "UPDATE booksauthors SET seq_no = ? WHERE isbn = ?, author_id = ?)";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(2, livroAutor.getIsbn());
+            stmt.setInt(1, livroAutor.getSeq_no());
+            stmt.setInt(3, livroAutor.getAuthor_id());
+
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    public void excluirLivroAutor(LivroAutor livroAutor) {
+        String sql = "DELETE FROM booksauthors where isbn=?";
+
+        try {
+            try ( //Statement stmt = conn.prepareStatement(sql);
+                    PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, livroAutor.getIsbn());
+                pstmt.executeUpdate();
+            }
+            conn.close();
+
+            JOptionPane.showMessageDialog(null, "Livro Excluido com sucesso");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

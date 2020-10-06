@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,7 +20,7 @@ public class AutorDAO {
         conn = DatabaseConnection.getConnection();
     }
 
-    public void inserirAutor(Autor autor) {
+    public boolean inserirAutor(Autor autor) {
         String sql = "INSERT INTO authors (name,fname)VALUES(?,?)";
 
         try {
@@ -30,24 +29,21 @@ public class AutorDAO {
             stmt.setString(2, autor.getFname());
 
             if (stmt.executeUpdate() > 0) {
-                //return true;
+                return true;
             }
 
-            JOptionPane.showMessageDialog(null, "Autor inserido com sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao inserir o autor" + ex);
+            System.err.println(ex.getMessage());
         }
 
-        //return false;
+        return false;
     }
-    
 
-    
     public List<Autor> listarAutor() {
         String sql = "SELECT * FROM authors";
         PreparedStatement stmt;
         List<Autor> autores = new ArrayList<>();
-        
+
         if (conn != null) {
             try {
                 stmt = conn.prepareStatement(sql);
@@ -59,7 +55,7 @@ public class AutorDAO {
                     autor.setAuthor_id(rs.getInt("author_id"));
                     autor.setFname(rs.getString("fname"));
                     autor.setName(rs.getString("name"));
-                    
+
                     autores.add(autor);
                 }
                 return autores;
@@ -69,15 +65,31 @@ public class AutorDAO {
             }
         }
         return null;
-        
+
     }
-    
-    
-    
-    
-    public void excluirAutor (Autor autor){
+
+    public boolean editarAutor(Autor autor) {
+        String sql = "UPDATE authors SET name = ?, fname = ? WHERE author_id = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, autor.getName());
+            stmt.setString(2, autor.getFname());
+            stmt.setInt(3, autor.getAuthor_id());
+
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    public void excluirAutor(Autor autor) {
         String sql = "DELETE FROM authors where name = ? and fname= ?";
-        
+
         try {
             try ( //Statement stmt = conn.prepareStatement(sql);
                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -86,36 +98,12 @@ public class AutorDAO {
                 pstmt.executeUpdate();
             }
             conn.close();
-            
+
             JOptionPane.showMessageDialog(null, "Autor excluido com sucesso");
-            
 
-        } catch(SQLException e){
-           System.err.println(e.getMessage());
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
     }
-    
-    public void modificarAutor(Autor autor){
-         String sql = "INSERT INTO authors (name,fname)VALUES(?,?)";
 
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, autor.getName());
-            stmt.setString(2, autor.getFname());
-
-            if (stmt.executeUpdate() > 0) {
-                //return true;
-            }
-
-            JOptionPane.showMessageDialog(null, "Autor alterado com sucesso");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar o autor" + ex);
-        }
-
-    }
-    
-    
-    
-    
 }
-
