@@ -61,6 +61,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButton4.setText("Sair");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Livraria Amazônia");
 
@@ -117,6 +122,11 @@ public class Main extends javax.swing.JFrame {
           CadastrarAutor cadastrarAutor = new CadastrarAutor();
           cadastrarAutor.setVisible(true);   
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
