@@ -62,7 +62,7 @@ public class Main extends javax.swing.JFrame {
 
         jButton4.setText("Sair");
 
-        jLabel1.setText("Livraria amazonia");
+        jLabel1.setText("Livraria Amazônia");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
