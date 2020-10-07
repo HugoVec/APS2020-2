@@ -130,6 +130,16 @@ public class CadastrarAutor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -269,10 +279,35 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        // TODO add your handling code here:
-        AlterarAutor frame = new AlterarAutor();
-        frame.setVisible(true);
+        if(jTable1.getSelectedRow() != -1){
+            Autor autor = new Autor();
+            AutorDAO autorDAO = new AutorDAO();
+            
+            autor.setName(textFieldNome.getText());
+            autor.setFname(textFieldFNome.getText());
+            autor.setAuthor_id((int)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+            autorDAO.editarAutor(autor);
+            
+            textFieldNome.setText("");
+            textFieldFNome.setText("");
+            
+            listarTabela();
+        }
     }//GEN-LAST:event_buttonEditarActionPerformed
+
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        if(jTable1.getSelectedRow() != -1){
+            textFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            textFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        }
+    }//GEN-LAST:event_jTable1KeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if(jTable1.getSelectedRow() != -1){
+            textFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            textFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
