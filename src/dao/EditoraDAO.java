@@ -83,22 +83,20 @@ public class EditoraDAO {
         return false;
     }
 
-    public void excluirEditora(Editora editora) {
-        String sql = "DELETE FROM publishers where name = ? and url = ?";
+    public boolean excluirEditora(Editora editora) {
+        String sql = "DELETE FROM publishers WHERE publisher_id = ?";
 
         try {
-            try ( //Statement stmt = conn.prepareStatement(sql);
-                    PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, editora.getName());
-                pstmt.setString(2, editora.getUrl());
-                pstmt.executeUpdate();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, editora.getPublisher_id());
+
+            if (stmt.executeUpdate() > 0) {
+                return true;
             }
-            conn.close();
 
-            JOptionPane.showMessageDialog(null, "Editora excluida com sucesso");
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
+        return false;
     }
 }

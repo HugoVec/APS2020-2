@@ -87,23 +87,21 @@ public class AutorDAO {
         return false;
     }
 
-    public void excluirAutor(Autor autor) {
-        String sql = "DELETE FROM authors where name = ? and fname= ?";
+    public boolean excluirAutor(Autor autor) {
+        String sql = "DELETE FROM authors WHERE author_id = ?";
 
         try {
-            try ( //Statement stmt = conn.prepareStatement(sql);
-                    PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, autor.getName());
-                pstmt.setString(2, autor.getFname());
-                pstmt.executeUpdate();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, autor.getAuthor_id());
+
+            if (stmt.executeUpdate() > 0) {
+                return true;
             }
-            conn.close();
 
-            JOptionPane.showMessageDialog(null, "Autor excluido com sucesso");
-
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
+        return false;
     }
 
 }

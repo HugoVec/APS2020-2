@@ -3,7 +3,6 @@ package view;
 import dao.AutorDAO;
 import entity.Autor;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import main.Main;
 
@@ -13,16 +12,16 @@ public class CadastrarAutor extends javax.swing.JFrame {
         initComponents();
         DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
         jTable1.setRowSorter(new TableRowSorter(tabela));
-        
+
         listarTabela();
     }
-    
-    public void listarTabela(){
+
+    public void listarTabela() {
         DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
         tabela.setNumRows(0);
         AutorDAO autorDAO = new AutorDAO();
-        
-        for(Autor autor: autorDAO.listarAutor()){
+
+        for (Autor autor : autorDAO.listarAutor()) {
             tabela.addRow(new Object[]{
                 autor.getAuthor_id(),
                 autor.getName(),
@@ -40,8 +39,8 @@ public class CadastrarAutor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        textFieldNome = new javax.swing.JTextField();
-        textFieldFNome = new javax.swing.JTextField();
+        TextFieldNome = new javax.swing.JTextField();
+        TextFieldFNome = new javax.swing.JTextField();
         buttonCadastrar = new javax.swing.JButton();
         buttonPesquisar = new javax.swing.JButton();
         buttonEditar = new javax.swing.JButton();
@@ -54,21 +53,23 @@ public class CadastrarAutor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(618, 550));
+
         jLabel1.setText("Nome");
 
         jLabel2.setText("FNome");
 
         jLabel3.setText("Cadastrar Autor");
 
-        textFieldNome.addActionListener(new java.awt.event.ActionListener() {
+        TextFieldNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldNomeActionPerformed(evt);
+                TextFieldNomeActionPerformed(evt);
             }
         });
 
-        textFieldFNome.addActionListener(new java.awt.event.ActionListener() {
+        TextFieldFNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldFNomeActionPerformed(evt);
+                TextFieldFNomeActionPerformed(evt);
             }
         });
 
@@ -146,13 +147,13 @@ public class CadastrarAutor extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -165,12 +166,12 @@ public class CadastrarAutor extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TextFieldFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(buttonCadastrar)
                         .addGap(18, 18, 18)
@@ -181,10 +182,10 @@ public class CadastrarAutor extends javax.swing.JFrame {
                         .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(buttonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,10 +194,10 @@ public class CadastrarAutor extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textFieldFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextFieldFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCadastrar)
@@ -207,7 +208,7 @@ public class CadastrarAutor extends javax.swing.JFrame {
                     .addComponent(buttonVoltar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -226,33 +227,24 @@ public class CadastrarAutor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldNomeActionPerformed
-
-    private void textFieldFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldFNomeActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_textFieldFNomeActionPerformed
-
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
         Autor autor = new Autor();
         AutorDAO autorDAO = new AutorDAO();
 
-        autor.setName(textFieldNome.getText());
-        autor.setFname(textFieldFNome.getText());
+        autor.setName(TextFieldNome.getText());
+        autor.setFname(TextFieldFNome.getText());
         autorDAO.inserirAutor(autor);
-        
-        textFieldNome.setText("");
-        textFieldFNome.setText("");
-        
+
+        TextFieldNome.setText("");
+        TextFieldFNome.setText("");
+
         listarTabela();
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     private void buttonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLimparActionPerformed
         // TODO add your handling code here:
-        textFieldNome.setText("");
-        textFieldFNome.setText("");
+        TextFieldNome.setText("");
+        TextFieldFNome.setText("");
     }//GEN-LAST:event_buttonLimparActionPerformed
 
     private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
@@ -262,13 +254,18 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonVoltarActionPerformed
 
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
-        // TODO add your handling code here:
-        Autor autor = new Autor();
-        AutorDAO autorDAO = new AutorDAO();
+        if (jTable1.getSelectedRow() != -1) {
+            Autor autor = new Autor();
+            AutorDAO autorDAO = new AutorDAO();
 
-        autor.setName(textFieldNome.getText());
-        autor.setFname(textFieldFNome.getText());
-        autorDAO.excluirAutor(autor);
+            autor.setAuthor_id((int) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+            autorDAO.excluirAutor(autor);
+
+            TextFieldNome.setText("");
+            TextFieldFNome.setText("");
+
+            listarTabela();
+        }
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
@@ -279,35 +276,43 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        if(jTable1.getSelectedRow() != -1){
+        if (jTable1.getSelectedRow() != -1) {
             Autor autor = new Autor();
             AutorDAO autorDAO = new AutorDAO();
-            
-            autor.setName(textFieldNome.getText());
-            autor.setFname(textFieldFNome.getText());
-            autor.setAuthor_id((int)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+
+            autor.setName(TextFieldNome.getText());
+            autor.setFname(TextFieldFNome.getText());
+            autor.setAuthor_id((int) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
             autorDAO.editarAutor(autor);
-            
-            textFieldNome.setText("");
-            textFieldFNome.setText("");
-            
+
+            TextFieldNome.setText("");
+            TextFieldFNome.setText("");
+
             listarTabela();
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
-        if(jTable1.getSelectedRow() != -1){
-            textFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-            textFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        if (jTable1.getSelectedRow() != -1) {
+            TextFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            TextFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
         }
     }//GEN-LAST:event_jTable1KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if(jTable1.getSelectedRow() != -1){
-            textFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-            textFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        if (jTable1.getSelectedRow() != -1) {
+            TextFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            TextFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void TextFieldFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldFNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldFNomeActionPerformed
+
+    private void TextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,6 +351,8 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TextFieldFNome;
+    private javax.swing.JTextField TextFieldNome;
     private javax.swing.JButton buttonCadastrar;
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonExcluir;
@@ -360,7 +367,5 @@ public class CadastrarAutor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField textFieldFNome;
-    private javax.swing.JTextField textFieldNome;
     // End of variables declaration//GEN-END:variables
 }
