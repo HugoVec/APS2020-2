@@ -10,6 +10,7 @@ public class CadastrarEditora extends javax.swing.JFrame {
 
     public CadastrarEditora() {
         initComponents();
+        setLocationRelativeTo(null);
         DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
         jTable1.setRowSorter(new TableRowSorter(tabela));
 
@@ -22,6 +23,21 @@ public class CadastrarEditora extends javax.swing.JFrame {
         EditoraDAO editoraDAO = new EditoraDAO();
 
         for (Editora editora : editoraDAO.listarEditora()) {
+            tabela.addRow(new Object[]{
+                editora.getPublisher_id(),
+                editora.getName(),
+                editora.getUrl()
+            });
+        }
+    }
+
+    public void pesquisarTabela(String descricao, String desc) {
+        DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
+        tabela.setNumRows(0);
+        EditoraDAO editoraDAO = new EditoraDAO();
+
+        for (Editora editora : editoraDAO.pesquisarEditora(descricao, desc)) {
+
             tabela.addRow(new Object[]{
                 editora.getPublisher_id(),
                 editora.getName(),
@@ -82,6 +98,11 @@ public class CadastrarEditora extends javax.swing.JFrame {
         });
 
         buttonPesquisar.setText("Pesquisar");
+        buttonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPesquisarActionPerformed(evt);
+            }
+        });
 
         buttonEditar.setText("Editar");
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +283,16 @@ public class CadastrarEditora extends javax.swing.JFrame {
 
             listarTabela();
         }
+
+        Editora editora = new Editora();
+        EditoraDAO EditoraDaoTextField = new EditoraDAO();
+        
+        editora.setName(TextFieldNome.getText());
+        editora.setUrl(TextFieldUrl.getText());
+        EditoraDaoTextField.excluirEditoraTextField(editora);
+        
+        listarTabela();
+
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
@@ -302,6 +333,22 @@ public class CadastrarEditora extends javax.swing.JFrame {
     private void TextFieldUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldUrlActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldUrlActionPerformed
+
+    private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
+        // TODO add your handling code here:
+        /*Editora editora = new Editora();
+        EditoraDAO editoraDAO = new EditoraDAO();
+        editora.setUrl(TextFieldNome.getText());
+        editora.setUrl(TextFieldUrl.getText());
+        editoraDAO.pesquisarEditora();*/
+
+        pesquisarTabela(TextFieldNome.getText(), TextFieldUrl.getText());
+        //pesquisarTabela(TextFieldUrl.getText());
+
+        //TextFieldNome.setText("");
+        //TextFieldUrl.setText("");
+
+    }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -18,6 +18,21 @@ public class CadastrarLivro extends javax.swing.JFrame {
         LivroDAO livroDAO = new LivroDAO();
         
     }
+
+    public void listarTabelaLivro() {
+        DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
+        tabela.setNumRows(0);
+        LivroDAO livroDAO = new LivroDAO();
+
+        for (Livro livro : livroDAO.listarLivro()) {
+            tabela.addRow(new Object[]{
+                livro.getIsbn(),
+                livro.getTitulo(),
+                livro.getPublisher_id(),
+                livro.getPrice()
+            });
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,6 +75,12 @@ public class CadastrarLivro extends javax.swing.JFrame {
         textFieldPublisher_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldPublisher_idActionPerformed(evt);
+            }
+        });
+
+        textFieldPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldPriceActionPerformed(evt);
             }
         });
 
@@ -221,7 +242,19 @@ public class CadastrarLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_textFieldPublisher_idActionPerformed
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
-        
+        Livro livro = new Livro();
+        LivroDAO livroDAO = new LivroDAO();
+
+        livro.setTitulo(textFieldTitulo.getText());
+        livro.setPublisher_id(Integer.parseInt(textFieldPublisher_id.getText()));
+        livro.setPrice(Float.parseFloat(textFieldPrice.getText()));
+        livroDAO.inserirLivro(livro);
+
+        textFieldTitulo.setText("");
+        textFieldPublisher_id.setText("");
+        textFieldPrice.setText("");
+
+        listarTabela();
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     private void buttonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLimparActionPerformed
@@ -259,6 +292,10 @@ public class CadastrarLivro extends javax.swing.JFrame {
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonEditarActionPerformed
+
+    private void textFieldPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldPriceActionPerformed
 
     /**
      * @param args the command line arguments

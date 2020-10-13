@@ -51,8 +51,9 @@ public class LivroDAO {
                 while (rs.next()) {
                     Livro livro = new Livro();
 
-                    livro.setTitulo(rs.getString("title"));
+                    
                     livro.setIsbn(rs.getString("isbn"));
+                    livro.setTitulo(rs.getString("title"));
                     livro.setPublisher_id(rs.getInt("publisher_id"));
                     livro.setPrice(rs.getFloat("price"));
                     livros.add(livro);
