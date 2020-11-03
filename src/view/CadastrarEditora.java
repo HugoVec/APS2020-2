@@ -10,6 +10,8 @@ public class CadastrarEditora extends javax.swing.JFrame {
 
     public CadastrarEditora() {
         initComponents();
+        TextFieldNome.setDocument(new teclasPermitidas());
+        TextFieldUrl.setDocument(new teclasPermitidas());
         setLocationRelativeTo(null);
         DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
         jTable1.setRowSorter(new TableRowSorter(tabela));

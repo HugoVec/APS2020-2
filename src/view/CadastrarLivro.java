@@ -9,6 +9,8 @@ public class CadastrarLivro extends javax.swing.JFrame {
 
     public CadastrarLivro() {
         initComponents();
+        textFieldPublisher_id.setDocument(new teclasPermitidas());
+        textFieldPrice.setDocument(new numerosPermitidos());
          setLocationRelativeTo(null);
     }
 

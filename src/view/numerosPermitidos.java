@@ -12,16 +12,16 @@ import javax.swing.text.PlainDocument;
  *
  * @author Huga Savioli
  */
-public class teclasPermitidas extends PlainDocument{
+public class numerosPermitidos extends PlainDocument{
     @Override
     public void insertString(int offset, String str, javax.swing.text.AttributeSet attr)
     throws BadLocationException{
-        super.insertString(offset, str.replaceAll("[^a-z|^A-Z|^ ]", ""), attr);
+        super.insertString(offset, str.replaceAll("[^0-9|^,]", ""), attr);
     }
     
     public void replace(int offset, String str, javax.swing.text.AttributeSet attr)
     throws BadLocationException{
-        super.insertString(offset, str.replaceAll("[^a-z|^A-Z|^ ]", ""), attr);
+        super.insertString(offset, str.replaceAll("[^0-9|^,]", ""), attr);
     }
     
 }

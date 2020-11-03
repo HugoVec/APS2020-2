@@ -11,6 +11,7 @@ public class CadastrarAutor extends javax.swing.JFrame {
     public CadastrarAutor() {
         initComponents();
         TextFieldNome.setDocument(new teclasPermitidas());
+        TextFieldFNome.setDocument(new teclasPermitidas());
         setLocationRelativeTo(null);
         DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
         jTable1.setRowSorter(new TableRowSorter(tabela));
