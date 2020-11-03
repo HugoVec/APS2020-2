@@ -2,6 +2,7 @@ package view;
 
 import dao.LivroDAO;
 import entity.Livro;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
 
@@ -244,6 +245,11 @@ public class CadastrarLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_textFieldPublisher_idActionPerformed
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
+        if(textFieldTitulo.getText().equals("") || textFieldPublisher_id.getText().equals("") || textFieldPrice.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Os campos são obrigatórios", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         Livro livro = new Livro();
         LivroDAO livroDAO = new LivroDAO();
 
