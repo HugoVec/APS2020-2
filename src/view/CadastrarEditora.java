@@ -2,6 +2,7 @@ package view;
 
 import dao.EditoraDAO;
 import entity.Editora;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import main.Main;
@@ -259,6 +260,11 @@ public class CadastrarEditora extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLimparActionPerformed
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
+        if(TextFieldNome.getText().equals("") || TextFieldUrl.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Os campos são obrigatórios", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         Editora editora = new Editora();
         EditoraDAO editoraDAO = new EditoraDAO();
 

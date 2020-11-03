@@ -2,6 +2,7 @@ package view;
 
 import dao.AutorDAO;
 import entity.Autor;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import main.Main;
@@ -231,6 +232,11 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
+        if(TextFieldNome.getText().equals("") || TextFieldFNome.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Os campos são obrigatórios", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         Autor autor = new Autor();
         AutorDAO autorDAO = new AutorDAO();
 
