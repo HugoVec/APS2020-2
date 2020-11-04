@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import jdbc.DatabaseConnection;
 
 public class EditoraDAO {
@@ -63,20 +62,19 @@ public class EditoraDAO {
         }
         return null;
     }
-    
-   
-     public List<Editora> pesquisarEditora(String descricao, String desc) {
-         
+
+    public List<Editora> pesquisarEditora(String descricao, String desc) {
+
         Connection conn = DatabaseConnection.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-       
+
         List<Editora> editoras = new ArrayList<>();
         if (conn != null) {
             try {
-                stmt = conn.prepareStatement("SELECT * FROM publishers where name LIKE ? and url LIKE ?");
-                stmt.setString(1, "%"+descricao+"%");
-                stmt.setString(2, "%"+desc+"%");
+                stmt = conn.prepareStatement("SELECT * FROM publishers WHERE name LIKE ? and url LIKE ?");
+                stmt.setString(1, "%" + descricao + "%");
+                stmt.setString(2, "%" + desc + "%");
                 rs = stmt.executeQuery();
 
                 while (rs.next()) {
@@ -94,7 +92,7 @@ public class EditoraDAO {
         }
         return null;
     }
-     
+
     public boolean editarEditora(Editora editora) {
         String sql = "UPDATE publishers SET name = ?, url = ? WHERE publisher_id = ?";
 
@@ -114,32 +112,12 @@ public class EditoraDAO {
         return false;
     }
 
-    
     public boolean excluirEditora(Editora editora) {
         String sql = "DELETE FROM publishers WHERE publisher_id = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, editora.getPublisher_id());
- 
-            if (stmt.executeUpdate() > 0) {
-                return true;
-            }
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return false;
-    }
-    
-    
-    public boolean excluirEditoraTextField(Editora editora) {
-        String sql = "DELETE FROM publishers WHERE name = ? AND url = ?";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, editora.getName());
-            stmt.setString(2, editora.getUrl());
 
             if (stmt.executeUpdate() > 0) {
                 return true;
@@ -150,5 +128,5 @@ public class EditoraDAO {
         }
         return false;
     }
+
 }
-

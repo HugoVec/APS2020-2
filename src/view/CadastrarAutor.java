@@ -33,6 +33,21 @@ public class CadastrarAutor extends javax.swing.JFrame {
             });
         }
     }
+    
+    public void pesquisarTabela(String descricao, String desc) {
+        DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
+        tabela.setNumRows(0);
+        AutorDAO autorDAO = new AutorDAO();
+
+        for (Autor autor : autorDAO.pesquisarAutor(descricao, desc)) {
+
+            tabela.addRow(new Object[]{
+                autor.getAuthor_id(),
+                autor.getName(),
+                autor.getFname()
+            });
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -232,6 +247,7 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
+        // TODO add your handling code here:
         if(TextFieldNome.getText().equals("") || TextFieldFNome.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Os campos são obrigatórios", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
@@ -257,12 +273,14 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLimparActionPerformed
 
     private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
+        // TODO add your handling code here:
         dispose();
         Main main = new Main();
         main.setVisible(true);
     }//GEN-LAST:event_buttonVoltarActionPerformed
 
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             Autor autor = new Autor();
             AutorDAO autorDAO = new AutorDAO();
@@ -279,12 +297,12 @@ public class CadastrarAutor extends javax.swing.JFrame {
 
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
         // TODO add your handling code here:
-        PesquisarAutor frame = new PesquisarAutor();
-        frame.setVisible(true);
+        pesquisarTabela(TextFieldNome.getText(), TextFieldFNome.getText());
 
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             Autor autor = new Autor();
             AutorDAO autorDAO = new AutorDAO();
@@ -302,6 +320,7 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             TextFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
             TextFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
@@ -309,6 +328,7 @@ public class CadastrarAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             TextFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
             TextFieldFNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());

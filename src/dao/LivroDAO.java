@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Editora;
 import entity.Livro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,13 +22,14 @@ public class LivroDAO {
     }
 
     public boolean inserirLivro(Livro livro) {
-        String sql = "INSERT INTO books (title,publisher_id,price)VALUES(?,?,?)";
+        String sql = "INSERT INTO books (title,isbn,publisher_id,price)VALUES(?,?,?,?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, livro.getTitulo());
-            stmt.setInt(2, livro.getPublisher_id());
-            stmt.setFloat(3, livro.getPrice());
+            stmt.setString(2, livro.getIsbn());
+            stmt.setInt(3, livro.getPublisher_id().getPublisher_id());
+            stmt.setFloat(4, livro.getPrice());
 
             if (stmt.executeUpdate() > 0) {
                 return true;
@@ -40,7 +42,8 @@ public class LivroDAO {
     }
 
     public List<Livro> listarLivro() {
-        String sql = "SELECT * FROM books";
+        String sql = "SELECT b.title, b.isbn, pub.name AS publisher_id, b.price "
+                + "FROM books AS b JOIN publishers AS pub ON (b.publisher_id = pub.publisher_id)";
         PreparedStatement stmt;
         List<Livro> livros = new ArrayList<>();
         if (conn != null) {
@@ -50,11 +53,13 @@ public class LivroDAO {
 
                 while (rs.next()) {
                     Livro livro = new Livro();
-
+                    Editora editora = new Editora();
                     
-                    livro.setIsbn(rs.getString("isbn"));
+                    editora.setName(rs.getString("publisher_id"));
+
                     livro.setTitulo(rs.getString("title"));
-                    livro.setPublisher_id(rs.getInt("publisher_id"));
+                    livro.setIsbn(rs.getString("isbn"));
+                    livro.setPublisher_id(editora);
                     livro.setPrice(rs.getFloat("price"));
                     livros.add(livro);
                 }
@@ -68,15 +73,51 @@ public class LivroDAO {
 
     }
 
+    public List<Livro> pesquisarLivro(String descricao, String desc, float num) {
+
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Livro> livros = new ArrayList<>();
+        if (conn != null) {
+            try {
+                stmt = conn.prepareStatement("SELECT * FROM books "
+                        + "WHERE title = ? OR isbn = ? OR price = ?");
+                stmt.setString(1, "%" + descricao + "%");
+                stmt.setString(2, "%" + desc + "%");
+                stmt.setString(3, "%" + num + "%");
+                rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    Livro livro = new Livro();
+                    //Editora editora = new Editora();
+                    
+                    //editora.setName(rs.getString("publisher_id"));
+                    livro.setTitulo(rs.getString("title"));
+                    livro.setIsbn(rs.getString("isbn"));
+                    //livro.setPublisher_id(editora);
+                    livro.setPrice(rs.getFloat("price"));
+                    livros.add(livro);
+                }
+                return livros;
+            } catch (SQLException ex) {
+                System.out.println("Failed in listarLivro()");
+                Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
     public boolean editarLivro(Livro livro) {
-        String sql = "UPDATE books SET title = ?, publisher_id = ?, price = ? WHERE isbn = ?";
+        String sql = "UPDATE books SET title = ?, isbn = ?, publisher_id = ?, price = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, livro.getTitulo());
-            stmt.setInt(2, livro.getPublisher_id());
-            stmt.setFloat(3, livro.getPrice());
-            stmt.setString(4, livro.getIsbn());
+            stmt.setString(2, livro.getIsbn());
+            stmt.setInt(3, livro.getPublisher_id().getPublisher_id());
+            stmt.setFloat(4, livro.getPrice());
 
             if (stmt.executeUpdate() > 0) {
                 return true;
@@ -88,20 +129,21 @@ public class LivroDAO {
         return false;
     }
 
-    public void excluirLivro(Livro livro) {
-        String sql = "DELETE FROM books where isbn=?";
+    public boolean excluirLivro(Livro livro) {
+        String sql = "DELETE FROM books WHERE isbn = ?";
 
         try {
-            try ( //Statement stmt = conn.prepareStatement(sql);
-                    PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, livro.getIsbn());
-                pstmt.executeUpdate();
-            }
-            conn.close();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, livro.getIsbn());
 
-            JOptionPane.showMessageDialog(null, "Livro Excluido com sucesso");
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            if (stmt.executeUpdate() > 0) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
+        return false;
     }
+
 }

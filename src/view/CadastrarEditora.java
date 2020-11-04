@@ -11,8 +11,6 @@ public class CadastrarEditora extends javax.swing.JFrame {
 
     public CadastrarEditora() {
         initComponents();
-        TextFieldNome.setDocument(new teclasPermitidas());
-        TextFieldUrl.setDocument(new teclasPermitidas());
         setLocationRelativeTo(null);
         DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
         jTable1.setRowSorter(new TableRowSorter(tabela));
@@ -248,6 +246,7 @@ public class CadastrarEditora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
+        // TODO add your handling code here:
         dispose();
         Main main = new Main();
         main.setVisible(true);
@@ -260,11 +259,12 @@ public class CadastrarEditora extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLimparActionPerformed
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
-        if(TextFieldNome.getText().equals("") || TextFieldUrl.getText().equals("")){
+        // TODO add your handling code here:
+        if (TextFieldNome.getText().equals("") || TextFieldUrl.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Os campos são obrigatórios", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         Editora editora = new Editora();
         EditoraDAO editoraDAO = new EditoraDAO();
 
@@ -279,6 +279,7 @@ public class CadastrarEditora extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             Editora editora = new Editora();
             EditoraDAO editoraDAO = new EditoraDAO();
@@ -291,19 +292,10 @@ public class CadastrarEditora extends javax.swing.JFrame {
 
             listarTabela();
         }
-
-        Editora editora = new Editora();
-        EditoraDAO EditoraDaoTextField = new EditoraDAO();
-        
-        editora.setName(TextFieldNome.getText());
-        editora.setUrl(TextFieldUrl.getText());
-        EditoraDaoTextField.excluirEditoraTextField(editora);
-        
-        listarTabela();
-
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             Editora editora = new Editora();
             EditoraDAO editoraDAO = new EditoraDAO();
@@ -321,6 +313,7 @@ public class CadastrarEditora extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             TextFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
             TextFieldUrl.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
@@ -328,6 +321,7 @@ public class CadastrarEditora extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
         if (jTable1.getSelectedRow() != -1) {
             TextFieldNome.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
             TextFieldUrl.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
@@ -344,17 +338,7 @@ public class CadastrarEditora extends javax.swing.JFrame {
 
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
         // TODO add your handling code here:
-        /*Editora editora = new Editora();
-        EditoraDAO editoraDAO = new EditoraDAO();
-        editora.setUrl(TextFieldNome.getText());
-        editora.setUrl(TextFieldUrl.getText());
-        editoraDAO.pesquisarEditora();*/
-
         pesquisarTabela(TextFieldNome.getText(), TextFieldUrl.getText());
-        //pesquisarTabela(TextFieldUrl.getText());
-
-        //TextFieldNome.setText("");
-        //TextFieldUrl.setText("");
 
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
