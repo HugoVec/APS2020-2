@@ -30,4 +30,8 @@ public class Autor {
         this.fname = fname;
     }
   
+    @Override
+    public String toString() {
+        return this.getName(); 
+    }
 }
