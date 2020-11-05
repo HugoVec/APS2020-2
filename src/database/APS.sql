@@ -1,3 +1,5 @@
+CREATE DATABASE APS;
+
 CREATE TABLE Authors (
  author_id SERIAL PRIMARY KEY,
  name CHAR(25),
@@ -12,8 +14,7 @@ CREATE TABLE Publishers (
 
 CREATE TABLE Books (
  title CHAR(60),
- isbn CHAR(13),
- id SERIAL PRIMARY KEY,
+ isbn CHAR(13) PRIMARY KEY,
  publisher_id INT,
  price DECIMAL(10,2),
  FOREIGN KEY (publisher_id) REFERENCES Publishers
@@ -21,11 +22,11 @@ CREATE TABLE Books (
 );
 
 CREATE TABLE BooksAuthors (
- isbn INT,
+ isbn CHAR(13),
  author_id INT,
  seq_no INT,
- FOREIGN KEY (isbn) REFERENCES Books (id),
+ FOREIGN KEY (isbn) REFERENCES Books (isbn),
  FOREIGN KEY (author_id) REFERENCES Authors
 (author_id),
  PRIMARY KEY (isbn, author_id)
-);
+);
