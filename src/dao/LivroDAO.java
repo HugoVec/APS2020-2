@@ -42,7 +42,7 @@ public class LivroDAO {
     }
 
     public List<Livro> listarLivro() {
-        String sql = "SELECT b.id, b.title, b.isbn, pub.name AS publisher_id, b.price "
+        String sql = "SELECT b.title, b.isbn, pub.name AS publisher_id, b.price "
                 + "FROM books AS b JOIN publishers AS pub ON (b.publisher_id = pub.publisher_id)";
         PreparedStatement stmt;
         List<Livro> livros = new ArrayList<>();
@@ -56,8 +56,7 @@ public class LivroDAO {
                     Editora editora = new Editora();
                     
                     editora.setName(rs.getString("publisher_id"));
-                    
-                    livro.setId(rs.getInt("id"));
+
                     livro.setTitulo(rs.getString("title"));
                     livro.setIsbn(rs.getString("isbn"));
                     livro.setPublisher_id(editora);
@@ -74,7 +73,7 @@ public class LivroDAO {
 
     }
 
-    public List<Livro> pesquisarLivro(String descricao, String de) {
+    public List<Livro> pesquisarLivro(String descricao, String desc, float num) {
 
         Connection conn = DatabaseConnection.getConnection();
         PreparedStatement stmt = null;
@@ -83,16 +82,22 @@ public class LivroDAO {
         List<Livro> livros = new ArrayList<>();
         if (conn != null) {
             try {
-                stmt = conn.prepareStatement("SELECT * FROM books WHERE title LIKE ? AND isbn LIKE ?");
+                stmt = conn.prepareStatement("SELECT * FROM books "
+                        + "WHERE title = ? OR isbn = ? OR price = ?");
                 stmt.setString(1, "%" + descricao + "%");
-                stmt.setString(2, "%" + de + "%");
+                stmt.setString(2, "%" + desc + "%");
+                stmt.setString(3, "%" + num + "%");
                 rs = stmt.executeQuery();
 
                 while (rs.next()) {
                     Livro livro = new Livro();
-                    livro.setId(rs.getInt("id"));
+                    //Editora editora = new Editora();
+                    
+                    //editora.setName(rs.getString("publisher_id"));
                     livro.setTitulo(rs.getString("title"));
                     livro.setIsbn(rs.getString("isbn"));
+                    //livro.setPublisher_id(editora);
+                    livro.setPrice(rs.getFloat("price"));
                     livros.add(livro);
                 }
                 return livros;
@@ -105,8 +110,7 @@ public class LivroDAO {
     }
 
     public boolean editarLivro(Livro livro) {
-        String sql = "UPDATE books SET title = ?, isbn = ?, publisher_id = ?, price = ?"
-                + "WHERE id = ?";
+        String sql = "UPDATE books SET title = ?, isbn = ?, publisher_id = ?, price = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -114,7 +118,6 @@ public class LivroDAO {
             stmt.setString(2, livro.getIsbn());
             stmt.setInt(3, livro.getPublisher_id().getPublisher_id());
             stmt.setFloat(4, livro.getPrice());
-            stmt.setInt(5, livro.getId());
 
             if (stmt.executeUpdate() > 0) {
                 return true;
@@ -127,13 +130,13 @@ public class LivroDAO {
     }
 
     public boolean excluirLivro(Livro livro) {
-        String sql = "DELETE FROM books WHERE id = ?";
+        String sql = "DELETE FROM books WHERE isbn = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, livro.getId());
+            stmt.setString(1, livro.getIsbn());
 
-            if (stmt.executeUpdate() >= 0) {
+            if (stmt.executeUpdate() > 0) {
                 return true;
             }
 

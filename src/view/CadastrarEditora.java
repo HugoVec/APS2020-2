@@ -339,7 +339,7 @@ public class CadastrarEditora extends javax.swing.JFrame {
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
         // TODO add your handling code here:
         pesquisarTabela(TextFieldNome.getText(), TextFieldUrl.getText());
-        
+
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     public static void main(String args[]) {

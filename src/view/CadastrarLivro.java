@@ -29,7 +29,6 @@ public class CadastrarLivro extends javax.swing.JFrame {
 
         for (Livro livro : livroDAO.listarLivro()) {
             tabela.addRow(new Object[]{
-                livro.getId(),
                 livro.getTitulo(),
                 livro.getIsbn(),
                 livro.getPublisher_id().getName(),
@@ -38,16 +37,18 @@ public class CadastrarLivro extends javax.swing.JFrame {
         }
     }
 
-    public void pesquisarTabela(String descricao, String de) {
+    public void pesquisarTabela(String descricao, String desc, float num) {
         DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
         tabela.setNumRows(0);
         LivroDAO livroDAO = new LivroDAO();
 
-        for (Livro livro : livroDAO.pesquisarLivro(descricao, de)) {
+        for (Livro livro : livroDAO.pesquisarLivro(descricao, desc, num)) {
+
             tabela.addRow(new Object[]{
-                livro.getId(),
                 livro.getTitulo(),
-                livro.getIsbn()
+                livro.getIsbn(),
+                livro.getPublisher_id(),
+                livro.getPrice()
             });
         }
     }
@@ -163,11 +164,11 @@ public class CadastrarLivro extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "TITULO", "ISBN", "EDITORA", "PREÇO"
+                "TITULO", "ISBN", "EDITORA", "PREÇO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -321,7 +322,7 @@ public class CadastrarLivro extends javax.swing.JFrame {
 
     private void buttonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisarActionPerformed
         // TODO add your handling code here:
-        pesquisarTabela(textFieldTitulo.getText(), textFieldIsbn.getText());
+        pesquisarTabela(textFieldTitulo.getText(), textFieldIsbn.getText(), (Float.parseFloat(textFieldPrice.getText())));
     }//GEN-LAST:event_buttonPesquisarActionPerformed
 
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
@@ -329,14 +330,14 @@ public class CadastrarLivro extends javax.swing.JFrame {
         if (jTable1.getSelectedRow() != -1) {
             Livro livro = new Livro();
             LivroDAO livroDAO = new LivroDAO();
-            
-            livro.setId((int)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+
+            livro.setIsbn((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
             livroDAO.excluirLivro(livro);
-            
+
             textFieldTitulo.setText("");
             textFieldIsbn.setText("");
             textFieldPrice.setText("");
-            
+
             listarTabela();
         }
     }//GEN-LAST:event_buttonExcluirActionPerformed
@@ -356,11 +357,9 @@ public class CadastrarLivro extends javax.swing.JFrame {
             LivroDAO livroDAO = new LivroDAO();
 
             livro.setTitulo(textFieldTitulo.getText());
-            livro.setIsbn(textFieldTitulo.getText());
             editora = (Editora) comboBoxEditora.getSelectedItem();
             livro.setPublisher_id(editora);
             livro.setPrice(Float.parseFloat(textFieldPrice.getText()));
-            livro.setId((int) jTable1.getValueAt(jTable1.getSelectedRow(), 0));
             livroDAO.editarLivro(livro);
 
             textFieldTitulo.setText("");
@@ -397,16 +396,16 @@ public class CadastrarLivro extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectRow = jTable1.getSelectedRow();
 
-        textFieldTitulo.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        textFieldIsbn.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        textFieldTitulo.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        textFieldIsbn.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
 
-        String comoBox = jTable1.getValueAt(selectRow, 3).toString();
+        String comoBox = jTable1.getValueAt(selectRow, 2).toString();
         for (int i = 0; i < comboBoxEditora.getItemCount(); i++) {
             if (comboBoxEditora.getItemAt(i).toString().equalsIgnoreCase(comoBox)) {
                 comboBoxEditora.setSelectedIndex(i);
             }
         }
-        textFieldPrice.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+        textFieldPrice.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
